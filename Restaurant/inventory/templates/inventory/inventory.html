@@ -22,8 +22,9 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in ingredient %}
-                <tr>
+            {% for item in ingridients %}
+                <tr class="table-row" style="font-size: 18px;">
+                    <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.quantity}}</td>
                     <td>{{item.unit}}</td>
