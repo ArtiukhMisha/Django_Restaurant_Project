@@ -8,6 +8,13 @@ body {
     flex-direction: column;
 }
 
-.main-content {
+.d-flex.flex-column.min-vh-100 {
     flex: 1;
+}
+
+footer {
+    background-color: #f8f9fa; /* Example background color */
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
 }

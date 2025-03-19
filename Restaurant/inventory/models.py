@@ -22,8 +22,7 @@ class MenuItem(models.Model):
 
 class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-    ingridients = models.JSONField(default=list)
-    quantity = models.JSONField(default=dict)
+    ingridients_quantity = models.JSONField(default=dict)
 
     def __str__(self):
         return self.menu_item.name
