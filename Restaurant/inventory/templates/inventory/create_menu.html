@@ -12,13 +12,11 @@
       {% csrf_token %}
 
 
-
       {{menu_form.name}}<br>
 
-      
       {{menu_form.price}}<br>
       
-      {{recipe_form.ingridients_quantity}}<br>
+     
       
 
 
@@ -45,18 +43,11 @@
           </select>
         </div>
 
-        <div class="col-12">
-          <label for="price" class="form-label">Price</label>
-          <input type="number" class="form-control" id="price" name="price" placeholder="0.0" required="">
-          <div class="invalid-feedback">
-            Please enter a valid price.
-          </div>
-        </div>
-
         <br class="my-4">
 
         <button class="w-100 btn btn-primary btn-lg" type="submit" >Submit</button>
       </div>
     </form>
   </div>
+  
 {% endblock content %}

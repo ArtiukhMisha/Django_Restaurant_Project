@@ -23,7 +23,7 @@
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.price}}</td>
-                    <td><a href="{%url 'menu' %}"><i class="fa fa-trash"></i></a></td>
+                    <td><a href="{%url 'delete' item.id %}?model=menu"><i class="fa fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
 

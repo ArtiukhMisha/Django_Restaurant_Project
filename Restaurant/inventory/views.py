@@ -1,7 +1,23 @@
 from django.shortcuts import render, redirect
-from .models import Purchase, MenuItem, Ingridient, RecipeRequirement
-from .forms import MenuForm, RecipeRequirementForm, RecipeRequirementForm
+from django.views.generic.edit import DeleteView
+from .models import Purchase, MenuItem, Ingredient, RecipeRequirement
+from .forms import MenuForm
+from time import sleep
+import sys
+from django.shortcuts import get_object_or_404
+import logging
+
 # Create your views here.
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler("formatted.log")
+stream_handler = logging.StreamHandler(sys.stdout)
+formatter2 = logging.Formatter("[%(asctime)s] {%(levelname)s} - %(message)s")
+stream_handler.setFormatter(formatter2)
+file_handler.setFormatter(formatter2)
+
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
 
 
 def home(request):
@@ -12,7 +28,7 @@ def inventory(request):
     return render(
         request,
         "inventory/inventory.html",
-        context={"ingridients": Ingridient.objects.all()},
+        context={"ingredients": Ingredient.objects.all()},
     )
 
 
@@ -25,12 +41,12 @@ def menu(request):
 
 
 def recipes(request):
-    ingridients = {i.id: i.name for i in Ingridient.objects.all()}
+    ingredients = {i.id: i.name for i in Ingredient.objects.all()}
     return render(
         request,
         "inventory/recipes.html",
         context={
-            "ingridients": ingridients,
+            "ingridients": ingredients,
             "recipes": RecipeRequirement.objects.all(),
         },
     )
@@ -48,12 +64,44 @@ def purchase(request):
 
 
 def create_menu(request):
-    menu_form = MenuForm()
-    recipe_form = RecipeRequirementForm()
+    if request.method == "POST":
+        form = MenuForm(request.POST)
+        if form.is_valid():
+            menu_item = form.save()
+            selected_ingredients = request.POST.get("selected_ingredients", "").split(
+                ","
+            )
+            ingredients = {}
+            logger.info(f"selected_ingredients: {selected_ingredients}")
+            for item in selected_ingredients:
+                if item:
+                    ingredient_id, quantity = item.split(":")
+                    ingredients[ingredient_id] = quantity
+            recipe = RecipeRequirement.objects.create(
+                menu_item=menu_item, ingredients_quantity=ingredients
+            )
+            recipe.save()
+            return redirect("menu")
+    else:
+        form = MenuForm()
 
     context = {
-        "inventory": Ingridient.objects.all(),
-        "menu_form": menu_form,
-        "recipe_form": recipe_form,
+        "inventory": Ingredient.objects.all(),
+        "menu_form": form,
     }
     return render(request, "inventory/create_menu.html", context)
+
+
+# ideas to add dialog window
+def delete(request, id):
+    model_name = request.GET.get("model")
+    model_class = {
+        "menu": MenuItem,
+        "inventory": Ingredient,
+        "recipes": RecipeRequirement,
+        "purchases": Purchase,
+    }.get(model_name.lower())
+    if model_class:
+        item = get_object_or_404(model_class, id=id)
+        item.delete()
+    return redirect(model_name)

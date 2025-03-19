@@ -23,15 +23,15 @@
         <tbody>
             {% for item in recipes %}
                 <tr class="table-row" style="font-size: 18px;">
-                    <td>{{item.menu_item}}</td>
+                    <td>{{item.id}}</td>
+                    <td>{{ item.menu_item }}</td>
                     <td>
-                        {% for key, value in item.ingridients_quantity.items %}
-                            (   {{ingridients|get_item_by_id:key}}
-                        : {{ value }})
+                        {% for key, value in item.ingredients_quantity.items %}
+                            ({{ ingredients|get_item_by_id:key }}: {{ value }})
                         {% endfor %}
                     </td>
-                    <td><a href="{%url 'menu' %}"><i class="fa fa-trash"></i></a></td>
 
+                    <td><a href="{% url 'delete' item.id %}?model=recipes"><i class="fa fa-trash"></i></a></td>
                 </tr>
             {% endfor %}
 

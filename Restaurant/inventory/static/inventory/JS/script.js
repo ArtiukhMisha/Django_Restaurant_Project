@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 ingredientElement.innerHTML = `
                     <div class="me-2">${ingredientName}</div>
                     <input type="number" class="form-control d-inline-block w-auto mx-2 amount-input" placeholder="${ingredientUnit}" name="amount_${ingredientId}" required>
-                    <button type="button" class="btn btn-sm btn-danger remove-ingredient" data-id="${ingredientId}"><i class="fa-regular fa-circle-xmark" style="font-size: 16px;"></i></button>
-                `;
-                selectedIngredientsContainer.appendChild(ingredientElement);
+                    <button type="button" class="btn btn-sm btn-danger remove-ingredient" data-id="${ingredientId}"><i class="fa-regular fa-circle-xmark" style="font-size: 16px;"></i></button>`;
+                
+                    selectedIngredientsContainer.appendChild(ingredientElement);
 
                 // Add event listener to the remove button
                 ingredientElement.querySelector('.remove-ingredient').addEventListener('click', function() {

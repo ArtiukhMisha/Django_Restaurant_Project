@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class Ingridient(models.Model):
+class Ingredient(models.Model):
     name = models.CharField(max_length=50)
     quantity = models.IntegerField(default=0)
     unit = models.CharField(max_length=10)
@@ -22,7 +22,7 @@ class MenuItem(models.Model):
 
 class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-    ingridients_quantity = models.JSONField(default=dict)
+    ingredients_quantity = models.JSONField()
 
     def __str__(self):
         return self.menu_item.name

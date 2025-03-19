@@ -22,14 +22,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in ingridients %}
+            {% for item in ingredients %}
                 <tr class="table-row" style="font-size: 18px;">
                     <td>{{item.id}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.quantity}}</td>
                     <td>{{item.unit}}</td>
                     <td>{{item.unit_price}}</td>
-                    <td><a href="{%url 'menu' %}"><i class="fa fa-trash"></i></a></td>
+                    <td><a href="{%url 'delete' item.id %}?model=inventory"><i class="fa fa-trash"></i></a></td>
 
                 </tr>
             {% endfor %}

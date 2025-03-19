@@ -1,4 +1,4 @@
-from .models import Purchase, MenuItem, Ingridient, RecipeRequirement
+from .models import Purchase, MenuItem, Ingredient, RecipeRequirement
 from django import forms
 from django.forms import (
     ModelForm,
@@ -16,17 +16,23 @@ class MenuForm(ModelForm):
         model = MenuItem
         fields = "__all__"
         widgets = {
-            "name": TextInput(attrs={"class": "form-control", "placeholder": "Name"}),
+            "name": TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Name",
+                    "required": "required",
+                },
+            ),
             "price": NumberInput(
-                attrs={"class": "form-control", "default": 0.0, min: 0}
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Price",
+                    "name": "price",
+                    "required": "required",
+                }
             ),
         }
 
-
-class RecipeRequirementForm(forms.Form):
-    ingredients = forms.ModelMultipleChoiceField(
-        queryset=Ingridient.objects.all(),
-        widget=forms.SelectMultiple,
-        required=True,
-    )
-    quantities = forms.CharField(widget=forms.HiddenInput(), required=False)
+    def __init__(self, *args, **kwargs):
+        super(MenuForm, self).__init__(*args, **kwargs)
+        self.fields["price"].initial = None
