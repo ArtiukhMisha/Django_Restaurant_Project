@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
-    quantity = models.IntegerField(default=0)
+    quantity = models.FloatField(default=0)
     unit = models.CharField(max_length=10)
     unit_price = models.FloatField(null=False, blank=False)
 
@@ -17,7 +17,7 @@ class MenuItem(models.Model):
     price = models.FloatField(default=0)
 
     def __str__(self):
-        return self.name
+        return str(self.id) + " " + self.name
 
 
 class RecipeRequirement(models.Model):
@@ -29,18 +29,16 @@ class RecipeRequirement(models.Model):
 
 
 class Purchase(models.Model):
-    menu_items = models.JSONField(default=list)
+    menu_items = models.JSONField()
     cost = models.FloatField(default=0.0)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        # Ensure menu_items is a list of item IDs
-        if isinstance(self.menu_items, list):
-            # Fetch menu item prices from the database
+        # Ensure menu_items is a dictionary of item IDs and quantities
+        if isinstance(self.menu_items, dict):
             self.cost = sum(
-                MenuItem.objects.filter(id__in=self.menu_items).values_list(
-                    "price", flat=True
-                )
+                float(MenuItem.objects.get(id=item_id).price) * float(quantity)
+                for item_id, quantity in self.menu_items.items()
             )
         else:
             self.cost = 0  # Fallback in case of incorrect data

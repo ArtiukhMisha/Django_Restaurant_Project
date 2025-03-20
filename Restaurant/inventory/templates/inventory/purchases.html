@@ -21,9 +21,12 @@
             {% for item in purchases %}
                 <tr class="table-row" style="font-size: 18px;">
                     <td>{{item.id}}</td>
-                    <td>{% for i in menu_items %}
-                        {% if i.id in item.menu_items %}({{i.name}}){% endif %}
-                    {% endfor %}</td>
+                    <td>
+                        {% for key, value in item.menu_items.items %}
+                        
+                            ({{ menu_items|get_item_by_id:key }}: {{ value }})
+                        {% endfor %} 
+                    </td>
                     <td>{{item.cost}}</td>
                     <td>{{item.timestamp}}</td>
                     <td><a href="{%url 'delete' item.id %}?model=purchases"><i class="fa fa-trash"></i></a></td>
@@ -33,5 +36,7 @@
 
         </tbody>
     </table>
+    
 </div>
+
 {% endblock content %}

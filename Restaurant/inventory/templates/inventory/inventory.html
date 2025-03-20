@@ -16,9 +16,9 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Item</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
                 <th scope="col">Total</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
             </tr>
         </thead>
         <tbody>
@@ -30,13 +30,15 @@
                     <td>{{item.unit}}</td>
                     <td>{{item.unit_price}}</td>
                     <td><a href="{%url 'delete' item.id %}?model=inventory"><i class="fa fa-trash"></i></a></td>
-
+                    <td><a href="{%url  'item_update' item.id %}?model=inventory"><i class="fa-regular fa-pen-to-square"></i></a></td>
                 </tr>
             {% endfor %}
-
+                
+                
         </tbody>
+        
     </table>
-
+    <a href="{%url 'create_item' %}" class="btn btn-primary">Add item</a>
 </div>
 
 {% endblock content %}

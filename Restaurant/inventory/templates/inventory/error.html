@@ -1,0 +1,8 @@
+<!-- filepath: c:\Users\artiu\Desktop\Py_DEV\django\Restaurant\inventory\templates\inventory\error.html -->
+{% extends "inventory/base.html" %}
+{% block content %}
+<div class="alert alert-danger" role="alert">
+    {{ message }}
+</div>
+<a href="{% url 'create_purchase' %}" class="btn btn-primary">Back to Create Purchase</a>
+{% endblock content %}
