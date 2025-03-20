@@ -5,3 +5,14 @@
 [2025-03-19 18:46:27,590] {INFO} - menu_item: 1
 [2025-03-19 18:48:08,898] {INFO} - menu_item: 1
 [2025-03-19 18:48:13,226] {INFO} - menu_item: 1
+[2025-03-19 19:19:39,571] {INFO} - selected_ingredients: ['1:3']
+[2025-03-19 19:20:55,765] {DEBUG} - Ingredients: {'1': '3'}
+[2025-03-19 19:31:03,884] {DEBUG} - Ingredients: {1: 'orange jelly', 2: 'eggs', 3: 'cane sugar'}
+[2025-03-19 19:34:00,929] {DEBUG} - Ingredients: {1: 'orange jelly', 2: 'eggs', 3: 'cane sugar'}
+[2025-03-19 19:34:00,943] {DEBUG} - Dictionary: 
+[2025-03-19 19:35:12,893] {DEBUG} - Ingredients: {1: 'orange jelly', 2: 'eggs', 3: 'cane sugar'}
+[2025-03-19 19:35:43,077] {DEBUG} - Ingredients: {1: 'orange jelly', 2: 'eggs', 3: 'cane sugar'}
+[2025-03-19 19:36:54,018] {DEBUG} - Ingredients: {1: 'orange jelly', 2: 'eggs', 3: 'cane sugar'}
+[2025-03-19 19:37:08,818] {DEBUG} - Ingredients: {'1': '1', '2': '2', '3': '3'}
+[2025-03-19 19:37:11,193] {DEBUG} - Ingredients: {1: 'orange jelly', 2: 'eggs', 3: 'cane sugar'}
+[2025-03-19 19:37:17,253] {DEBUG} - Ingredients: {1: 'orange jelly', 2: 'eggs', 3: 'cane sugar'}

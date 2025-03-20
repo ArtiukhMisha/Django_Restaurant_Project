@@ -1,3 +1,4 @@
+// filepath: c:\Users\artiu\Desktop\Py_DEV\django\Restaurant\inventory\templates\inventory\create_menu.html
 {% extends "inventory/base.html" %}
 {% load static %}
 {% block head %}
@@ -11,43 +12,28 @@
     <form class="needs-validation" novalidate="" method="post" action="{% url 'create_menu' %}">
       {% csrf_token %}
 
-
-      {{menu_form.name}}<br>
-
-      {{menu_form.price}}<br>
-      
-     
-      
-
+      {{ menu_form.name }}<br>
+      {{ menu_form.price }}<br>
 
       <div class="row g-3">
-        
-
-        <div class="col-12">
-          <label for="ingredients" class="form-label">Ingredients</label>
-          <div class="input-group mb-3">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select Ingredients</button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              {% for option in inventory %}
-                <li>
-                  <a class="dropdown-item" href="#" data-id="{{ option.id }}" data-name="{{ option.name }}" data-unit="{{ option.unit }}">{{ option.name }}</a>
-                </li>
-              {% endfor %}
-            </ul>
+          <div class="col-12">
+              <label for="ingredients" class="form-label">Ingredients</label>
+              <div class="input-group mb-3">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Select Ingredients</button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                      {% for option in inventory %}
+                          <li>
+                              <a class="dropdown-item" href="#" data-id="{{ option.id }}" data-name="{{ option.name }}" data-unit="{{ option.unit }}">{{ option.name }}</a>
+                          </li>
+                      {% endfor %}
+                  </ul>
+              </div>
+              <div id="selected-ingredients-container" class="mb-3"></div>
+              <input type="hidden" id="selected-ingredients" name="selected_ingredients">
           </div>
-          <div id="selected-ingredients-container" class="mb-3"></div>
-          <select id="ingredients" name="ingredients" class="d-none" multiple>
-            {% for option in inventory %}
-              <option value="{{ option.id }}">{{ option.name }}</option>
-            {% endfor %}
-          </select>
-        </div>
-
-        <br class="my-4">
-
-        <button class="w-100 btn btn-primary btn-lg" type="submit" >Submit</button>
       </div>
+
+      <button class="w-100 btn btn-primary btn-lg" type="submit">Submit</button>
     </form>
   </div>
-  
 {% endblock content %}

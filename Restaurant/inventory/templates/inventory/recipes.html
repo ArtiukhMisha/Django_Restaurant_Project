@@ -27,8 +27,9 @@
                     <td>{{ item.menu_item }}</td>
                     <td>
                         {% for key, value in item.ingredients_quantity.items %}
+                        
                             ({{ ingredients|get_item_by_id:key }}: {{ value }})
-                        {% endfor %}
+                        {% endfor %} 
                     </td>
 
                     <td><a href="{% url 'delete' item.id %}?model=recipes"><i class="fa fa-trash"></i></a></td>

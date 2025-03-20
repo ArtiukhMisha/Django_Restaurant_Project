@@ -7,7 +7,6 @@ import sys
 from django.shortcuts import get_object_or_404
 import logging
 
-# Create your views here.
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler("formatted.log")
@@ -42,11 +41,12 @@ def menu(request):
 
 def recipes(request):
     ingredients = {i.id: i.name for i in Ingredient.objects.all()}
+    logger.debug(f"Ingredients: {ingredients}")
     return render(
         request,
         "inventory/recipes.html",
         context={
-            "ingridients": ingredients,
+            "ingredients": ingredients,
             "recipes": RecipeRequirement.objects.all(),
         },
     )
@@ -72,11 +72,11 @@ def create_menu(request):
                 ","
             )
             ingredients = {}
-            logger.info(f"selected_ingredients: {selected_ingredients}")
             for item in selected_ingredients:
                 if item:
                     ingredient_id, quantity = item.split(":")
                     ingredients[ingredient_id] = quantity
+            logger.debug(f"Ingredients: {ingredients}")
             recipe = RecipeRequirement.objects.create(
                 menu_item=menu_item, ingredients_quantity=ingredients
             )
