@@ -9,6 +9,9 @@ import sys
 from django.shortcuts import get_object_or_404
 import logging
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler("formatted.log")
@@ -67,6 +70,7 @@ def purchase(request):
     )
 
 
+@login_required
 def create_item(request):
     if request.method == "POST":
         form = ItemForm(request.POST)
@@ -80,6 +84,7 @@ def create_item(request):
     return render(request, "inventory/create_item.html", context)
 
 
+@login_required
 def create_menu(request):
     if request.method == "POST":
         form = MenuForm(request.POST)
@@ -109,6 +114,7 @@ def create_menu(request):
     return render(request, "inventory/create_menu.html", context)
 
 
+@login_required
 def create_purchase(request):
     if request.method == "POST":
         selected_ingredients = request.POST.get("selected_ingredients", "").split(",")
@@ -174,7 +180,7 @@ def create_purchase(request):
     return render(request, "inventory/create_purchase.html", context)
 
 
-# ideas to add dialog window
+@login_required  # ideas to add dialog window
 def delete(request, id):
     model_name = request.GET.get("model")
     model_class = {
@@ -189,7 +195,7 @@ def delete(request, id):
     return redirect(model_name)
 
 
-class ItemUpdateView(UpdateView):
+class ItemUpdateView(LoginRequiredMixin, UpdateView):
     model = Ingredient
     template_name = "inventory/create_item.html"
     success_url = reverse_lazy("inventory")
